@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Button, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
@@ -54,6 +54,39 @@ export default function CreateNote() {
 
     const classes = createNoteStyles();
 
+    const [titleDescription, setTitleDescription] = useState(
+        {
+            title: "",
+            description: ""
+        }
+    );
+    const [notesListData, setNotesListData] = useState([]);
+
+    const titleNoteAreaHandler = e => {
+
+        const { target: { name, value } } = e;
+
+        setTitleDescription(oldTitleDescription => {
+            return {
+                [name]: value,
+                ...oldTitleDescription
+            }
+        });
+    }
+
+    const onAddClickhanler = () => {
+        setNotesListData(oldNotesListData => {
+            return [...oldNotesListData, titleDescription]
+        });
+
+        setTitleDescription(
+            {
+                title: "",
+                description: "",
+            }
+        );
+    }
+
     return (
         <Container fixed className={classes.root}>
 
@@ -61,11 +94,11 @@ export default function CreateNote() {
 
                 <Grid item style={{ boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.5)', borderRadius: '0.5em', }} xs={11} sm={8} md={6}>
 
-                    <form noValidate autoComplete="off">
+                    <form onSubmit={onAddClickhanler} noValidate autoComplete="off">
 
-                        <input type="text" placeholder='Title' />
-                        <textarea placeholder="write a note..."></textarea>
-                        <Button>Add</Button>
+                        <input name="title" onChange={titleNoteAreaHandler} type="text" placeholder='Title' />
+                        <textarea name="description" onChange={titleNoteAreaHandler} placeholder="write a note..."></textarea>
+                        <Button type="submit">Add</Button>
 
                     </form>
 
