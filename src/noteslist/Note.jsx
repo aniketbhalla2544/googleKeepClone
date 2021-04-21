@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const noteStyles = makeStyles({
     root: {
 
+
         '& *': {
             fontFamily: 'Roboto, sans-serif',
         },
@@ -21,9 +22,14 @@ const noteStyles = makeStyles({
     },
 
     'noteCard': {
+        backgroundColor: 'transparent',
+        boxShadow: '6px 6px 10px rgba(0, 0, 0, 0.2), -8px -8px 10px rgba(255, 255, 255, 0.7)',
+        border: 'none',
+        aspectRatio: '4 / 5',
+
 
         '&:hover': {
-            boxShadow: '0 0 5px rgba(0, 0, 0, 0.6)',
+            boxShadow: '0 0 5px rgba(0, 0, 0, 0.6) inset',
             cursor: 'pointer',
         }
     }

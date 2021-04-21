@@ -22,6 +22,7 @@ export default function CreateNote() {
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'stretch',
+                    borderRadius: '0.5em',
 
                     // error msg box
                     '&::before': {
@@ -29,11 +30,12 @@ export default function CreateNote() {
                         position: 'relative',
                         top: 0,
                         left: 0,
-                        color: 'red',
+                        color: '#212529',
                         paddingBottom: '1rem',
-                        fontWeight: '600',
-                        fontSize: '1rem',
-
+                        // fontWeight: 'bolder',
+                        fontWeight: '600 !important',
+                        fontSize: '2rem',
+                        fontFamily: `"Tangerine", "cursive"`,
                     },
 
                     '& > *': {
@@ -43,6 +45,8 @@ export default function CreateNote() {
                     '& > *:not(:last-child)': {
                         marginBottom: '1rem',
                         border: 'none',
+                        backgroundColor: 'transparent',
+                        color: '#495057',
                     },
 
                     '& > *:not(:last-child):focus': {
@@ -51,12 +55,20 @@ export default function CreateNote() {
 
                     '& Button': {
                         alignSelf: 'flex-end',
+                        color: '#212529',
+                        fontWeight: '700',
+                        boxShadow: '5px 5px 7px rgba(0, 0, 0, 0.4), -5px -5px 5px rgba(255, 255, 255, 0.6)',
+                        padding: '0.4rem 1.8rem',
 
                         '& > *': {
-                            fontSize: '1.1rem',
+                            fontSize: '1.2rem',
                         }
                     }
-                }
+                },
+            },
+
+            formContainer: {
+                boxShadow: '10px 10px 10px rgba(0, 0, 0, 0.2), -8px -8px 10px rgba(255, 255, 255, 0.6)',
             },
 
             flexCenter: {
@@ -66,7 +78,6 @@ export default function CreateNote() {
             }
         }
     );
-
     const classes = createNoteStyles();
     const [notesListData, setNotesListData] = useContext(NoteContext);
     const [titleDescription, setTitleDescription] = useState(
@@ -120,7 +131,7 @@ export default function CreateNote() {
 
             <Grid container className={classes.flexCenter} spacing={4}>
 
-                <Grid item style={{ boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.5)', borderRadius: '0.5em', }} xs={11} sm={8} md={6}>
+                <Grid item className={classes.formContainer} xs={11} sm={8} md={6}>
 
                     <form onSubmit={onAddClickhandler} noValidate autoComplete="off">
 
