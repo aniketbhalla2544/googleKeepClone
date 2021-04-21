@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+// import React, { useContext } from 'react';
 import Note from './Note';
 import { Container, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -18,17 +19,25 @@ export default function NotesList() {
 
     const classes = NoteListStyle();
 
+    useEffect(() => {
+        console.log(NotesListData);
+    }, [NotesListData]);
+
+
     return (
 
         <Container fixed className={classes.root}>
 
             <Grid container spacing={10}>
 
-                {NotesListData.map((noteObject, index) => {
+                {NotesListData.map((noteObject, index, thisArray) => {
 
-                    const { id, title, description } = noteObject;
+                    noteObject.id = `${index}${noteObject.title.split(" ").join("")}`;
+
+                    let { id, title, description } = noteObject;
 
                     return <Note key={id} id={id} title={title} description={description} />;
+
                 })}
 
             </Grid>

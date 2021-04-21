@@ -1,68 +1,81 @@
-import React, { useState, useEffect, useContext } from 'react';
+// import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Container, Button, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import { NoteContext } from './NoteContext';
 
-const createNoteStyles = makeStyles(
-    {
-        root: {
-            marginTop: '3.5rem',
-            padding: '1rem',
-
-            '& *': {
-                fontFamily: 'Roboto, sans-serif',
-            },
-
-            '& form': {
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'stretch',
-
-                '& > *': {
-                    fontSize: '1.25rem',
-                },
-
-                '& > *:not(:last-child)': {
-                    marginBottom: '1rem',
-                    border: 'none',
-                },
-
-                '& > *:not(:last-child):focus': {
-                    outline: 'none',
-                },
-
-                '& Button': {
-                    alignSelf: 'flex-end',
-
-                    '& > *': {
-                        fontSize: '1.1rem',
-                    }
-                }
-            }
-        },
-
-        flexCenter: {
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'stretch',
-        }
-    }
-);
-
 export default function CreateNote() {
 
-    const classes = createNoteStyles();
+    const [emptyNoteErrMsg, setEmptyNoteErrMsg] = useState("");
+    const createNoteStyles = makeStyles(
+        {
+            root: {
+                marginTop: '3.5rem',
+                padding: '1rem',
 
+                '& *': {
+                    fontFamily: 'Roboto, sans-serif',
+                },
+
+                '& form': {
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'stretch',
+
+                    // error msg box
+                    '&::before': {
+                        content: `"${emptyNoteErrMsg}"`,
+                        position: 'relative',
+                        top: 0,
+                        left: 0,
+                        color: 'red',
+                        paddingBottom: '1rem',
+                        fontWeight: '600',
+                        fontSize: '1rem',
+
+                    },
+
+                    '& > *': {
+                        fontSize: '1.25rem',
+                    },
+
+                    '& > *:not(:last-child)': {
+                        marginBottom: '1rem',
+                        border: 'none',
+                    },
+
+                    '& > *:not(:last-child):focus': {
+                        outline: 'none',
+                    },
+
+                    '& Button': {
+                        alignSelf: 'flex-end',
+
+                        '& > *': {
+                            fontSize: '1.1rem',
+                        }
+                    }
+                }
+            },
+
+            flexCenter: {
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'stretch',
+            }
+        }
+    );
+
+    const classes = createNoteStyles();
+    const [notesListData, setNotesListData] = useContext(NoteContext);
     const [titleDescription, setTitleDescription] = useState(
         {
+            id: "",
             title: "",
             description: "",
         }
     );
-
-    const [notesListData, setNotesListData] = useContext(NoteContext);
-
     const titleNoteAreaHandler = e => {
 
         const { target: { name, value } } = e;
@@ -75,25 +88,32 @@ export default function CreateNote() {
         });
     }
 
-    useEffect(() => console.log(titleDescription), [titleDescription]);
-    useEffect(() => console.log(notesListData), [notesListData]);
+    // useEffect(() => console.log(titleDescription), [titleDescription]);
+    // useEffect(() => console.log(notesListData), [notesListData]);
 
 
     const onAddClickhandler = e => {
 
         e.preventDefault();
-        setNotesListData(oldNotesListData => {
-            return [...oldNotesListData, titleDescription]
-        });
 
-        setTitleDescription(
-            {
-                title: "",
-                description: "",
-            }
-        );
+        if (titleDescription.title != "" && titleDescription.description != "") {
+
+            setNotesListData(oldNotesListData => {
+                return [...oldNotesListData, titleDescription]
+            });
+
+            setTitleDescription(
+                {
+                    id: "",
+                    title: "",
+                    description: "",
+                }
+            );
+        } else {
+            setEmptyNoteErrMsg("Notes can't be stored empty....!!");
+            setTimeout(() => setEmptyNoteErrMsg(""), 5000);
+        }
     }
-
 
     return (
         <Container fixed className={classes.root}>
