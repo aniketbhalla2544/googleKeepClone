@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Container, Button, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import { NoteContext } from './NoteContext';
 
 const createNoteStyles = makeStyles(
     {
@@ -57,10 +57,11 @@ export default function CreateNote() {
     const [titleDescription, setTitleDescription] = useState(
         {
             title: "",
-            description: ""
+            description: "",
         }
     );
-    const [notesListData, setNotesListData] = useState([]);
+
+    const [notesListData, setNotesListData] = useContext(NoteContext);
 
     const titleNoteAreaHandler = e => {
 
@@ -68,13 +69,19 @@ export default function CreateNote() {
 
         setTitleDescription(oldTitleDescription => {
             return {
+                ...oldTitleDescription,
                 [name]: value,
-                ...oldTitleDescription
             }
         });
     }
 
-    const onAddClickhanler = () => {
+    useEffect(() => console.log(titleDescription), [titleDescription]);
+    useEffect(() => console.log(notesListData), [notesListData]);
+
+
+    const onAddClickhandler = e => {
+
+        e.preventDefault();
         setNotesListData(oldNotesListData => {
             return [...oldNotesListData, titleDescription]
         });
@@ -87,6 +94,7 @@ export default function CreateNote() {
         );
     }
 
+
     return (
         <Container fixed className={classes.root}>
 
@@ -94,10 +102,10 @@ export default function CreateNote() {
 
                 <Grid item style={{ boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.5)', borderRadius: '0.5em', }} xs={11} sm={8} md={6}>
 
-                    <form onSubmit={onAddClickhanler} noValidate autoComplete="off">
+                    <form onSubmit={onAddClickhandler} noValidate autoComplete="off">
 
-                        <input name="title" onChange={titleNoteAreaHandler} type="text" placeholder='Title' />
-                        <textarea name="description" onChange={titleNoteAreaHandler} placeholder="write a note..."></textarea>
+                        <input value={titleDescription.title} name="title" onChange={titleNoteAreaHandler} type="text" placeholder='Title' />
+                        <textarea value={titleDescription.description} name="description" onChange={titleNoteAreaHandler} placeholder="write a note..."></textarea>
                         <Button type="submit">Add</Button>
 
                     </form>

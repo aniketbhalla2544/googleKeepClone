@@ -3,19 +3,19 @@ import './css/app.css';
 import Header from './Header';
 import CreateNote from './CreateNote';
 import NotesList from './noteslist/NotesList'
+import { NoteProvider } from './NoteContext';
 
 export default function App() {
   return (
 
     <>
       <Header />
-
       <main>
-        <CreateNote />
-        <NotesList />
+        <NoteProvider>
+          <CreateNote />
+          <NotesList />
+        </NoteProvider>
       </main>
-
-
     </>
   );
 }
