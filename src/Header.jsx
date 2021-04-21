@@ -5,9 +5,9 @@ import WbIncandescentSharpIcon from '@material-ui/icons/WbIncandescentSharp';
 
 const headerStyles = makeStyles({
     root: {
-        padding: "1.2em",
+        backgroundColor: '#495057',
+        padding: "1.6em",
         color: "white",
-        backgroundColor: "#FBBC04",
         borderBottom: '2px solid #c0bbb6',
 
         '& *': {
@@ -20,6 +20,8 @@ const headerStyles = makeStyles({
         justifyContent: 'flex-start',
         alignItems: 'center',
         gap: '0 0.4rem',
+        letterSpacing: '2px',
+        fontWeight: '500',
     },
 });
 
