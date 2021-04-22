@@ -1,6 +1,7 @@
 import React from 'react';
-import { Grid, Typography, Card, CardContent } from '@material-ui/core';
+import { Grid, Typography, Card, CardContent, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const noteStyles = makeStyles({
     root: {
@@ -29,10 +30,29 @@ const noteStyles = makeStyles({
 
 
         '&:hover': {
-            boxShadow: '0 0 5px rgba(0, 0, 0, 0.6) inset',
+
             cursor: 'pointer',
         }
-    }
+    },
+
+    deleteIConBox: {
+        boxShadow: '5px 5px 5px rgba(0, 0, 0, 0.2), -4px -4px 5px rgba(255, 255, 255, 0.6)',
+        position: 'absolute',
+        padding: '0.5rem 1rem',
+        right: '10px', bottom: '10px',
+        display: 'gird',
+        placeItems: 'center',
+
+        '&:hover': {
+            boxShadow: '0 0 5px rgba(0, 0, 0, 0.6) inset',
+        }
+    },
+
+
+    deleteIcon: {
+        // border: '1px solid red',
+    },
+
 });
 
 export default function Note(props) {
@@ -42,7 +62,7 @@ export default function Note(props) {
     return (
         <Grid className={classes.root} item xs={11} sm={6} md={3}>
 
-            <Card className={classes.noteCard} variant="outlined">
+            <Card style={{ position: 'relative', }} className={classes.noteCard} variant="outlined">
 
                 <CardContent>
 
@@ -51,6 +71,11 @@ export default function Note(props) {
                     <Typography className={classes.noteDescription} style={{ lineHeight: 1.8 }} paragraph>{props.description}</Typography>
 
                 </CardContent>
+
+                <Box className={classes.deleteIConBox} component="span" style={{}} onClick={() => { props.deleteNote(props.id) }}>
+                    <DeleteIcon className={classes.deleteIcon} />
+                </Box>
+
 
             </Card>
 

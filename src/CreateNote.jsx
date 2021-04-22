@@ -1,5 +1,5 @@
-// import React, { useState, useEffect, useContext } from 'react';
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+// import React, { useState, useContext } from 'react';
 import { Container, Button, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import { NoteContext } from './NoteContext';
@@ -69,6 +69,7 @@ export default function CreateNote() {
 
             formContainer: {
                 boxShadow: '10px 10px 10px rgba(0, 0, 0, 0.2), -8px -8px 10px rgba(255, 255, 255, 0.6)',
+                // backgroundColor: '#212529',
             },
 
             flexCenter: {
@@ -80,6 +81,7 @@ export default function CreateNote() {
     );
     const classes = createNoteStyles();
     const [notesListData, setNotesListData] = useContext(NoteContext);
+
     const [titleDescription, setTitleDescription] = useState(
         {
             id: "",
@@ -102,6 +104,7 @@ export default function CreateNote() {
     // useEffect(() => console.log(titleDescription), [titleDescription]);
     // useEffect(() => console.log(notesListData), [notesListData]);
 
+    // useEffect(() => console.log("CreateNote component rendered"));
 
     const onAddClickhandler = e => {
 

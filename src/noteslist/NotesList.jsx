@@ -8,7 +8,7 @@ import { NoteContext } from '../NoteContext';
 
 export default function NotesList() {
 
-    const [NotesListData] = useContext(NoteContext);
+    const [NotesListData, setNotesListData, deleteNoteItem] = useContext(NoteContext);
 
     const NoteListStyle = makeStyles({
         root: {
@@ -36,7 +36,7 @@ export default function NotesList() {
 
                     let { id, title, description } = noteObject;
 
-                    return <Note key={id} id={id} title={title} description={description} />;
+                    return <Note key={id} id={id} title={title} description={description} deleteNote={deleteNoteItem} />;
 
                 })}
 
